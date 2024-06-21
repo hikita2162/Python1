@@ -1,3 +1,6 @@
 x=float(input("Введите сторону квадрата"))
 square=x*x
-print("Площадь квадрата=",'%.4f'%square)
+import math
+print(math.ceil(square))
+print('%.4f'%square)
+print("Площадь квадрата=",math.ceil(square))
