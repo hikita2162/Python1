@@ -1,4 +1,4 @@
-from smartphone import Smartphone
+from Smartphone import Smartphone
 
 catalog = []
 phone1 = Smartphone("POCO","C65","+79917474293")
@@ -14,4 +14,4 @@ catalog.append(phone4)
 catalog.append(phone5)
 
 for phone in catalog:
-    print(f"{phone.Stamp} - {phone.Model}, {phone.Numder}")
+    print(f"{phone.stamp} - {phone.model}, {phone.numder}")
