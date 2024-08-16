@@ -5,8 +5,8 @@ from Lesson_7.sweg_Labs.Pages.CheckoutPage import CheckoutPage
 user_name = "standard_user"
 password = "secret_sauce"
 
-first_name = "Evgen"
-last_name = "Voronov"
+first_name = "Nikita"
+last_name = "dogadin"
 postol_code = "601500"
 
 sum = "$58.29"
