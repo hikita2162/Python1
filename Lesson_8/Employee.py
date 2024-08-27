@@ -36,12 +36,12 @@ class Employer:
             self.url + '/employee', headers=haeders, json=body)
         return response.json()
     
-    def get_info(self, emloyee_id: int):
-        response = requests.get(self.url + path + str(emloyee_id))
+    def get_info(self, employee_id: int):
+        response = requests.get(self.url + path + str(employee_id))
         return response
     
-    def change_info(self, token:str, emloyee_id: int, body: json):
+    def change_info(self, token:str, employee_id: int, body: json):
         headers = {'x-client-token': token}
-        response = requests.patch(self.url + path + str(emloyee_id), headers=headers,
+        response = requests.patch(self.url + path + str(employee_id), headers=headers,
                                   json=body)
         return response
