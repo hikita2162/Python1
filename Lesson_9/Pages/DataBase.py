@@ -6,7 +6,7 @@ class DataBase:
         'max_company_id': text('select MAX(id) from company'),
         'delete_company': text('delete from company where id = :company_id'),
         'list_SELECT': text('select * from employee where company_id = :id'),
-        'item_SELECT': text('select * from employee where company_id = :c_id and id = :e_id'),
+        'item_INSERT': text('insert into employee (company_id, first_name, last_name, phone) values (:company_id, :first_name, :last_name, :phone)'),
         'maxID_SELECT': text('select MAX(id) from employee where company_id = :c_id'),
         'item_DELETE': text('delete from employee where id = :id_delete'),
         'item_UPDATE': text('update employee set first_name = :new_name where id = :employer_id'),
@@ -68,12 +68,14 @@ class DataBase:
                 connection.close()
                 print("[INFO] DB connection closed")
 
-    def create_employer(self, compani_id: int, first_name: str, last_name: str, phone: str):
+    def create_employer(self, company_id: int, first_name: str, last_name: str, phone: str):
         try:
             with self.db.connect() as connection:
                 result = connection.execute(self.query['item_INSERT'],
-                                            parameters=dict(id=compani_id, name=first_name, surname=last_name,
-                                                            phone_num=phone))
+                                            parameters=dict(company_id=company_id, 
+                                                        first_name=first_name, 
+                                                        last_name=last_name,
+                                                        phone=phone))
                 connection.commit()
                 return result
         except Exception as _ex:
