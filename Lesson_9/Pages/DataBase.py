@@ -15,14 +15,24 @@ class DataBase:
     def __init__(self,engine) -> None:
        self.db = create_engine(engine)
     
-    def create_company(self,company_name: str, description: str):
-       self.db.execute(self.query['create_company'],name=company_name, description = description)
+    
+    def create_company(self, company_name: str, description: str):
+        try:
+            with self.db.connect() as connection:
+               connection.execute(self.query['create_company'], name=company_name, description=description)
+               connection.commit()
+        except Exception as _ex:
+            print("[INFO] Error - can't work with SQL", _ex)
+        finally:
+            if connection:
+               connection.close()
+               print("[INFO] DB connection closed")
 
     def delete(self,company_id: int):
         try:
             with self.db.connect() as connection:
                 connection.execute(self.query['delete_company'], parameters=dict(company_id=company_id))
-                connection.comit()
+                connection.commit()
         except Exception as _ex:
                 print("[INFO] Error - can't work with SQL", _ex)
         finally:
@@ -42,11 +52,20 @@ class DataBase:
                 connection.close()
                 print("[INFO] DB connection closed")
 
-    def get_list_employer(self, company_id: int):
-        list_employer = self.db.execute(self.query['list_SELECT'], id=company_id)
-        employees = list_employer.fetchall()
-        return employees
     
+    def get_list_employer(self, company_id: int):
+        try:
+            with self.db.connect() as connection:
+                result = connection.execute(self.query['list_SELECT'], parameters=dict(id=company_id))
+                employees = result.fetchall()
+                return employees
+        except Exception as _ex:
+            print("[INFO] Error - can't work with SQL", _ex)
+        finally:
+            if connection:
+               connection.close()
+               print("[INFO] DB connection closed")
+               
     def create_employer(self, company_id: int, first_name: str, last_name: str, phone: str):
         self.db.execute(self.query['item_INSERT'],company_id=company_id, 
                                                         first_name=first_name, 

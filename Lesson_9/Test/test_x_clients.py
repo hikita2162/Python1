@@ -10,7 +10,7 @@ db = DataBase(
 def test_get_list_of_emploeyers():
     db.create_company('nikivild', 'cool_company')
     max_id = db.last_company_id()
-    db.create_employer(max_id, "nikits","dogadin", 8002000600)
+    db.create_employer(max_id, "nikits", "dogadin", 8002000600)
     db_employer_list = db.get_list_employer(max_id)
     api_employer_list = api.get_list(max_id)
     assert db_employer_list is not None, "db_employer_list is None"
