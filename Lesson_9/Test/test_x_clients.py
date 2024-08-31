@@ -28,7 +28,7 @@ def test_add_new_employer():
     response = (api.get_list(max_id))[0]
     assert 'companyId' in response, "Key 'companyId' not found in response"
     employer_id = response["companyId"]
-    assert response["companyid"] == max_id
+    assert response["companyId"] == max_id
     assert response["firstName"] == "nikits"
     assert response["isActive"] == True
     assert response["lastName"] == "dogadin"
@@ -42,7 +42,7 @@ def test_assertion_data():
     employer_id = db.get_employer_id(max_id)
     get_api_info = (api.get_info(employer_id)).json()
     assert get_api_info["firstName"] == "nikits"
-    assert get_api_info["lastNmae"] == "dogadin"
+    assert get_api_info["lastName"] == "dogadin"
     assert get_api_info["phone"] == "8002000600"
     db.delete_employer(employer_id)
     db.delete(max_id)
@@ -55,7 +55,7 @@ def test_update_user_info():
     db.update_employer_info("boss", employer_id)
     get_api_info = (api.get_info(employer_id)).json()
     assert get_api_info["firstName"] == "boss"
-    assert get_api_info["lastNmae"] == "dogadin"
+    assert get_api_info["lastName"] == "dogadin"
     assert get_api_info["isActive"] == True
     db.delete_employer(employer_id)
     db.delete(max_id)
